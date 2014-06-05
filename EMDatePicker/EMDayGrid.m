@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSArray *days;
 @property (nonatomic, strong) NSMutableArray *dates;
 @property (nonatomic, assign) NSInteger selectedSegment;
+@property (nonatomic, strong) CAShapeLayer *circleLayer;
 @end
 
 @implementation EMDayGrid
@@ -52,6 +53,7 @@
     self.days = @[@"S", @"M", @"T", @"W", @"T", @"F", @"S"];
     self.titleFont = [UIFont systemFontOfSize:15.0];
     self.titleColor = [UIColor blackColor];
+    self.circleLayer = [CAShapeLayer layer];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -104,15 +106,23 @@
                                               alpha:1.0];
         }
         
+        
+        
         if (idx == self.selectedSegment) {
             foregroundColor = self.titleColor;
-            
             CGFloat radius = MAX(dayRect.size.width, dayRect.size.height) * 0.75;
-            CGRect eclipseRect = CGRectMake(x + dayRect.size.width / 2 - radius / 2, y + dayRect.size.height / 2 - radius / 2, radius, radius);
-            CGContextSetStrokeColorWithColor(ctx, foregroundColor.CGColor);
-            CGContextStrokeEllipseInRect(ctx, eclipseRect);
+            self.circleLayer.backgroundColor = self.titleColor.CGColor;
+            self.circleLayer.frame = CGRectMake(x + dayRect.size.width / 2 - radius / 2, y + dayRect.size.height / 2 - radius / 2, radius, radius);
+            self.circleLayer.cornerRadius = radius / 2;
+            if (!self.circleLayer.superlayer) {
+                [self.layer addSublayer:self.circleLayer];
+            }
+            foregroundColor = [UIColor whiteColor];
         }
+        
         dayLayer.foregroundColor = foregroundColor.CGColor;
+        
+
         dayLayer.contentsScale = [UIScreen mainScreen].scale;
         [self.layer addSublayer:dayLayer];
         

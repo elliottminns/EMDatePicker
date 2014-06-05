@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.summary      = 'Custom Date Picker for iOS'
   s.homepage     = 'https://github.com/elliott-minns/EMDatePicker'
-  s.platform     = :ios
+  s.platform     = :ios,"7.0"
   s.author = {
     'Elliott Minns' => 'elliott.minns@me.com'
   }

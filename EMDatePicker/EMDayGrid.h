@@ -24,4 +24,5 @@
 @property (nonatomic, strong) NSDate *minimumDate, *maximumDate;
 @property (nonatomic, assign, readonly) NSInteger selectedDay;
 @property (nonatomic, weak) id<EMDayGridDelegate> delegate;
+
 @end
