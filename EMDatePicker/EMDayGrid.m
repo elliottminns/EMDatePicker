@@ -141,7 +141,7 @@
             NSInteger segmentY = (touchLocation.y / (CGFloat)(self.bounds.size.height / 7)) - 1;
             
             NSInteger segment = (segmentY * 7) + segmentX;
-            if (segment > 0 && [self segmentIsValid:segment]) {
+            if (segment >= 0 && [self segmentIsValid:segment]) {
                 [self setSelectedDay:segment animated:YES];
             }
         }
@@ -204,13 +204,13 @@
         NSInteger date = firstDate + i - minusNumber;
         dateModel.isInCurrentMonth = isCurrentMonth;
         
-        if (self.minimumDate) {
+        if (self.minimumDate && [self.minimumDate getYear] == [self.date getYear]) {
             if (isCurrentMonth && date < numberOfDaysOutInCurrentMonthStart && [self.minimumDate getMonthNumber] == month + 1) {
                 dateModel.isInCurrentMonth = NO;
             }
         }
         
-        if (self.maximumDate) {
+        if (self.maximumDate && [self.minimumDate getYear] == [self.date getYear]) {
             if (isCurrentMonth && date > [self.maximumDate getDay] && [self.maximumDate getMonthNumber] == month + 1) {
                 dateModel.isInCurrentMonth = NO;
             }
